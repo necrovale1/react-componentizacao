@@ -2,7 +2,7 @@
   "name": "react-componentizacao",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://necrovale1.github.io/react-componentizacao",
+  "homepage": "https://necrovale1.github.io/react-componentizacao/",
   "type": "module",
   "scripts": {
     "dev": "vite",
