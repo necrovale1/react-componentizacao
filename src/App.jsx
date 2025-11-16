@@ -133,55 +133,67 @@ const HomeScreen = ({ theme }) => {
 };
 
 // --- Tela: Calculadora de IMC (IMCScreen) ---
-const IMCScreen = ({ theme }) => {
+// Adicione isDarkMode aqui nos parâmetros
+const IMCScreen = ({ theme, isDarkMode }) => {
   const [weight, setWeight] = useState('');
   const [height, setHeight] = useState('');
   const [resultData, setResultData] = useState(null);
 
   const getIMCDetails = (imcValue) => {
-    // Nota: Mantivemos as cores dos cards fixas (bg-colors) para garantir contraste e semântica,
-    // mas ajustamos a opacidade ou bordas se necessário.
     if (imcValue < 18.5) {
       return {
         value: imcValue.toFixed(2),
         category: 'Abaixo do Peso (Magreza)',
         tip: 'Consulte um nutricionista para uma dieta focada em ganho de massa saudável.',
-        boxClass: 'bg-yellow-100 border-yellow-400 text-yellow-900'
+        // Lógica: Se for escuro (isDarkMode), usa cores escuras com texto claro. Senão, usa o padrão.
+        boxClass: isDarkMode 
+          ? 'bg-yellow-900/50 border-yellow-600 text-yellow-100' 
+          : 'bg-yellow-100 border-yellow-400 text-yellow-900'
       };
     } else if (imcValue < 25) {
       return {
         value: imcValue.toFixed(2),
         category: 'Peso Normal',
         tip: 'Excelente! Mantenha uma alimentação equilibrada e a prática de exercícios.',
-        boxClass: 'bg-green-100 border-green-400 text-green-900'
+        boxClass: isDarkMode 
+          ? 'bg-green-900/50 border-green-600 text-green-100' 
+          : 'bg-green-100 border-green-400 text-green-900'
       };
     } else if (imcValue < 30) {
       return {
         value: imcValue.toFixed(2),
         category: 'Sobrepeso',
         tip: 'Sinal de alerta. Tente evitar alimentos processados e aumente a atividade física.',
-        boxClass: 'bg-yellow-100 border-yellow-400 text-yellow-900'
+        boxClass: isDarkMode 
+          ? 'bg-yellow-900/50 border-yellow-600 text-yellow-100' 
+          : 'bg-yellow-100 border-yellow-400 text-yellow-900'
       };
     } else if (imcValue < 35) {
       return {
         value: imcValue.toFixed(2),
         category: 'Obesidade Grau I',
         tip: 'Recomendamos buscar orientação profissional para adequar sua rotina.',
-        boxClass: 'bg-orange-100 border-orange-400 text-orange-900'
+        boxClass: isDarkMode 
+          ? 'bg-orange-900/50 border-orange-600 text-orange-100' 
+          : 'bg-orange-100 border-orange-400 text-orange-900'
       };
     } else if (imcValue < 40) {
       return {
         value: imcValue.toFixed(2),
         category: 'Obesidade Grau II (Severa)',
         tip: 'Sua saúde requer atenção. Procure um médico para uma avaliação completa.',
-        boxClass: 'bg-red-100 border-red-400 text-red-900'
+        boxClass: isDarkMode 
+          ? 'bg-red-900/50 border-red-600 text-red-100' 
+          : 'bg-red-100 border-red-400 text-red-900'
       };
     } else {
       return {
         value: imcValue.toFixed(2),
         category: 'Obesidade Grau III (Mórbida)',
         tip: 'É fundamental buscar ajuda médica especializada o quanto antes.',
-        boxClass: 'bg-rose-200 border-rose-500 text-rose-900'
+        boxClass: isDarkMode 
+          ? 'bg-rose-900/50 border-rose-700 text-rose-100' 
+          : 'bg-rose-200 border-rose-500 text-rose-900'
       };
     }
   };
@@ -295,7 +307,7 @@ export default function App() {
   const renderPage = () => {
     switch (currentPage) {
       case 'home': return <HomeScreen theme={theme} />;
-      case 'imc': return <IMCScreen theme={theme} />;
+      case 'imc': return <IMCScreen theme={theme} isDarkMode={isDarkMode} />;
       case '404':
       default: return <NotFoundScreen onNavigate={handleNavigate} theme={theme} />;
     }
